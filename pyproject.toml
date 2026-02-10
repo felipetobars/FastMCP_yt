@@ -1,0 +1,10 @@
+[project]
+name = "fastmcp-yt"
+version = "0.1.0"
+description = "Fast MCP for YouTube""
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=2.14.5",
+    "psycopg2>=2.9.11",
+]
