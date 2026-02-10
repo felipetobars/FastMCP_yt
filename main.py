@@ -21,7 +21,7 @@ def get_db_connection():
 # Función para listar empleados
 @app.tool
 def list_employees(limit: int = 5) -> List[Dict[str, Any]]: # la salida del Dict se especifica la llave (str), valor (Any)
-    """"Esta función lista los empleados de la empresa"""
+    """Esta función lista los empleados de la empresa"""
     try:
         conn = get_db_connection()
         cursor = conn.cursor() # Esto es para poder usar código PostgreSQL en Python
@@ -48,11 +48,11 @@ def list_employees(limit: int = 5) -> List[Dict[str, Any]]: # la salida del Dict
         return employees
     
     except Exception as e:
-        return {'error': f'Error al listar empleados: {str(e)}'}
+        raise RuntimeError(f"Error en la base de datos: {str(e)}")
         
 @app.tool
 def add_employee(name: str, position: str, department: str, salary: float, hire_date: Optional[str] = None):
-    """"Agrega un nuevo empleado a la base de datos"""
+    """Agrega un nuevo empleado a la base de datos"""
     try:
         if not name.strip():
             return {'error': 'El nombre del empleado no puede estar vacío'}
@@ -85,7 +85,7 @@ def add_employee(name: str, position: str, department: str, salary: float, hire_
                     }
                 }   
     except Exception as e:
-        return {"error": f"Error al agregar empleado: {str(e)}"}     
+        raise RuntimeError(f"Error al agregar empleado: {str(e)}")   
     
 if __name__ == "__main__":
     app.run(transport="sse", host="0.0.0.0", port=3000)

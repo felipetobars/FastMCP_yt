@@ -77,3 +77,36 @@ INSERT INTO employees (name, position, department, salary) VALUES
 ('Carlos López', 'Analista de Datos', 'Analytics', 65000),
 ('María Rodríguez', 'Diseñadora UX', 'Diseño', 60000);
 ```
+
+Se crea el docker usando:
+```
+docker-compose up -d --build
+```
+Una vez estén corriendo los contenedores (fastmcp_yt-mcp_server y postgres:15-alpine) se puede registrar el MCP, en este ejemplo, con Claude Desktop.
+
+## 5. Conexión desde Claude Desktop
+
+![alt text](assets/image.png)
+
+![alt text](assets/image2.png)
+
+Ejemplo de *claude_desktop_config.json*:
+```
+{
+  "mcpServers": {
+    "company-db": {
+      "command": "uvx",
+      "args": [
+        "mcp-proxy",
+        "http://localhost:3000/sse"
+      ]
+    }
+  },
+  "preferences": {
+    "sidebarMode": "chat",
+    "coworkScheduledTasksEnabled": false
+  }
+}
+```
+Se debe FINALIZAR toda tarea de Claude Desktop y reiniciar, y al volver a la configuración de desarrollador se debería ver ya el MCP (no debe haber otro servicio que consuma el MCP o puede haber errores al intentar usarlo):
+![alt text](assets/image3.png)

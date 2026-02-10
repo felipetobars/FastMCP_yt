@@ -1,7 +1,7 @@
 [project]
 name = "fastmcp-yt"
 version = "0.1.0"
-description = "Fast MCP for YouTube""
+description = "Fast MCP for YouTube"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

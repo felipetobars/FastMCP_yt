@@ -1,4 +1,4 @@
-version:  '3'
+version: '3'
 
 services:
   postgres:
@@ -16,25 +16,25 @@ services:
     networks:
       - mcp_network
 
-mcp_network:
-  build: .
-  container_name: company_mcp_server
-  environment:
-    DB_HOST: localhost
-    DB_PORT: 5432
-    DB_USER: ${POSTGRES_USER}
-    DB_PASSWORD: ${POSTGRES_PASSWORD}
-    DB_DATABASE: test_pgdb
-  ports:
-    - "3000:3000"
-  depends_on:
-    - postgres
-  networks:
-    - mcp_network
+  mcp_server:
+    build: .
+    container_name: company_mcp_server
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_DATABASE: test_pgdb
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - mcp_network
 
 networks:
   mcp_network:
     driver: bridge
 
 volumes:
-  postgres_data:
+  postgres-data:
